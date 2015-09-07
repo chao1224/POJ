@@ -1,0 +1,43 @@
+import java.util.*;
+
+public class Solution {
+	List<String> list = new ArrayList<String>();
+
+	public List<String> restoreIpAddresses(String s) {
+		if (s.length() > 13)
+			return list;
+		int limit = 256;
+		int len = s.length();
+		long a, b, c, d;
+		for (int i = 1; i < len; i++) {
+			a = Long.parseLong(s.substring(0, i));
+			if (a >= limit)
+				break;
+			if ((a > 0 && s.charAt(0) == '0') || (a == 0 && i > 1))
+				continue;
+			for (int j = i + 1; j < len; j++) {
+				b = Long.parseLong(s.substring(i, j));
+				if (b >= limit)
+					break;
+				if ((b > 0 && s.charAt(i) == '0') || (b == 0 && j - i > 1))
+					continue;
+				for (int k = j + 1; k < len; k++) {
+					c = Long.parseLong(s.substring(j, k));
+					if (c >= limit)
+						break;
+					if ((c > 0 && s.charAt(j) == '0') || (c == 0 && k - j > 1))
+						continue;
+					d = Long.parseLong(s.substring(k, len));
+					if (d >= limit)
+						continue;
+					if ((d > 0 && s.charAt(k) == '0')
+							|| (d == 0 && len - k > 1))
+						continue;
+					list.add(a + "." + b + "." + c + "." + d);
+				}
+			}
+		}
+
+		return list;
+	}
+}
