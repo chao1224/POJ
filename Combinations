@@ -1,0 +1,26 @@
+import java.util.*;
+
+public class Solution {
+	List<List<Integer>> list;
+
+	public List<List<Integer>> combine(int n, int k) {
+		list = new ArrayList<List<Integer>>();
+		dfs(0, 0, new ArrayList<Integer>(), n, k);
+		return list;
+	}
+
+	void dfs(int currentIndex, int count, ArrayList<Integer> currentList,
+			int n, int k) {
+	//	if (count == k) {
+	    if (currentIndex == n+1) {
+			list.add(new ArrayList(currentList));
+			return;
+		} else {
+			for (int i = currentIndex + 1; i <= n + 1 - (k - count); i++) {
+				currentList.add(i);
+				dfs(i, count + 1, currentList, n, k);
+				currentList.remove(currentList.size() - 1);
+			}
+		}
+	}
+}
