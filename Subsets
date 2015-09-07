@@ -1,0 +1,24 @@
+import java.util.*;
+
+public class Solution {
+	List<List<Integer>> list;
+
+	public List<List<Integer>> subsets(int[] nums) {
+		Arrays.sort(nums);
+		list = new ArrayList<List<Integer>>();
+		dfs(0, new ArrayList<Integer>(), nums);
+		return list;
+	}
+
+	void dfs(int index, ArrayList<Integer> currentList, int[] nums) {
+		if (index == nums.length) {
+			list.add(new ArrayList(currentList));
+			return;
+		}
+
+		dfs(index + 1, currentList, nums);
+		currentList.add(nums[index]);
+		dfs(index + 1, currentList, nums);
+		currentList.remove(currentList.size() - 1);
+	}
+}
