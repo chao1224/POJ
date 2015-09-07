@@ -1,0 +1,54 @@
+import java.util.*;
+
+public class Solution {
+	List<Integer> list = new ArrayList<Integer>();
+	Stack<TreeNode> stack = new Stack<TreeNode>();
+	HashSet<TreeNode> set = new HashSet<TreeNode>();
+
+	public List<Integer> inorderTraversal(TreeNode root) {
+		if (root == null)
+			return list;
+
+		stack.add(root);
+		TreeNode node;
+		while (!stack.isEmpty()) {
+			node = stack.peek();
+			if (set.contains(node)) {
+				stack.pop();
+				continue;
+			}
+			if (node.left != null && !set.contains(node.left)) {
+				stack.push(node.left);
+				continue;
+			}
+			list.add(node.val);
+			stack.pop();
+			set.add(node);
+			if (node.right != null && !set.contains(node.right))
+				stack.push(node.right);
+		}
+
+		// dfs(root);
+
+		return list;
+	}
+
+	void dfs(TreeNode r) {
+		if (r == null)
+			return;
+
+		if (r.left != null)
+			dfs(r.left);
+		list.add(r.val);
+		if (r.right != null)
+			dfs(r.right);
+	}
+
+	public static void main(String[] args) {
+		Solution s = new Solution();
+		TreeNode n1 = new TreeNode(1);
+		TreeNode n2 = new TreeNode(2);
+		n1.left = n2;
+		s.inorderTraversal(n1);
+	}
+}
