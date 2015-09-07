@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class Solution {
+	public ListNode partition(ListNode head, int x) {
+		ListNode smallerHead = null, biggerHead = null;
+		ListNode smallerTot = smallerHead, biggerTot = biggerHead;
+		ListNode temp = head, neo, next;
+
+		while (temp != null) {
+			next = temp.next;
+			temp.next = null;
+			if (temp.val < x) {
+				if (smallerHead == null) {
+					smallerHead = temp;
+					smallerTot = temp;
+				} else {
+					smallerTot.next = temp;
+					smallerTot = smallerTot.next;
+				}
+			} else {
+				if (biggerHead == null) {
+					biggerHead = temp;
+					biggerTot = temp;
+				} else {
+					biggerTot.next = temp;
+					biggerTot = biggerTot.next;
+				}
+			}
+			temp = next;
+		}
+
+		if (smallerHead == null)
+			return biggerHead;
+		else {
+			smallerTot.next = biggerHead;
+			return smallerHead;
+		}
+	}
+}
