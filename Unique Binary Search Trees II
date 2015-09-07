@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Solution {
+
+	public List<TreeNode> generateTrees(int n) {
+		return dfs(1, n);
+	}
+
+	ArrayList<TreeNode> dfs(int start, int end) {
+		ArrayList<TreeNode> list = new ArrayList<TreeNode>();
+		if (start > end) {
+			list.add(null);
+			return list;
+		}
+
+		ArrayList<TreeNode> left, right;
+
+		for (int i = start; i <= end; i++) {
+			left = dfs(start, i - 1);
+			right = dfs(i + 1, end);
+			for (int l = 0; l < left.size(); l++)
+				for (int r = 0; r < right.size(); r++) {
+					TreeNode root = new TreeNode(i);
+					root.left = left.get(l);
+					root.right = right.get(r);
+					list.add(root);
+				}
+		}
+
+		return list;
+	}
+}
