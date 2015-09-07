@@ -1,0 +1,19 @@
+import java.util.*;
+
+public class Solution {
+	public ListNode deleteDuplicates(ListNode head) {
+		ListNode temp = head;
+		ListNode next;
+		while (temp != null) {
+			next = temp.next;
+			if (next == null)
+				break;
+			if (temp.val == next.val) {
+				temp.next = next.next;
+			} else {
+				temp = next;
+			}
+		}
+		return head;
+	}
+}
